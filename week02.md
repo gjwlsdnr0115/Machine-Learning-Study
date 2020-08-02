@@ -59,5 +59,62 @@
   >>> lasso_reg.fit(X, y)
   >>> lasso_reg.predict([[1.5]])
   ```
+- <code>**sklearn.preprocessing.StandardScaler(*, copy=True, with_mean=True, with_std=True)**</code>
 
+  Standardize features by removing the mean and scaling to unit variance
+  
+  The standard score of a sample x is calculated as:
+
+  z = (x - u) / s
+
+  where u is the mean of the training samples or zero if `with_mean=False`, and s is the standard deviation of the training samples or one if `with_std=False`
+  
+  ```
+  >>> from sklearn.preprocessing import StandardScaler
+  >>> data = [[0, 0], [0, 0], [1, 1], [1, 1]]
+  >>> scaler = StandardScaler()
+  >>> print(scaler.fit(data))
+  StandardScaler()
+  >>> print(scaler.mean_)
+  [0.5 0.5]
+  >>> print(scaler.transform(data))
+  [[-1. -1.]
+  [-1. -1.]
+  [ 1.  1.]
+  [ 1.  1.]]
+  >>> print(scaler.transform([[2, 2]]))
+  [[3. 3.]]
+  ```
+
+- <code>**LinearSVC(penalty='l2', loss='squared_hinge', *, dual=True, tol=0.0001, C=1.0, multi_class='ovr', fit_intercept=True, intercept_scaling=1, class_weight=None, verbose=0, random_state=None, max_iter=1000)**</code>
+
+  Linear Support Vector Classification
+
+  ```
+  >>> from sklearn.svm import LinearSVC
+  >>> from sklearn.pipeline import make_pipeline
+  >>> from sklearn.preprocessing import StandardScaler
+  >>> from sklearn.datasets import make_classification
+  >>> X, y = make_classification(n_features=4, random_state=0)
+  >>> clf = make_pipeline(StandardScaler(),
+  ...                     LinearSVC(random_state=0, tol=1e-5))
+  >>> clf.fit(X, y)
+  Pipeline(steps=[('standardscaler', StandardScaler()),
+                  ('linearsvc', LinearSVC(random_state=0, tol=1e-05))])
+  ```
+  
+- <code>**sklearn.svm.SVC(*, C=1.0, kernel='rbf', degree=3, gamma='scale', coef0=0.0, shrinking=True, probability=False, tol=0.001, cache_size=200, class_weight=None, verbose=False, max_iter=-1, decision_function_shape='ovr', break_ties=False, random_state=None)**</code>
+
+  ```
+  >>> import numpy as np
+  >>> from sklearn.pipeline import make_pipeline
+  >>> from sklearn.preprocessing import StandardScaler
+  >>> X = np.array([[-1, -1], [-2, -1], [1, 1], [2, 1]])
+  >>> y = np.array([1, 1, 2, 2])
+  >>> from sklearn.svm import SVC
+  >>> clf = make_pipeline(StandardScaler(), SVC(gamma='auto'))
+  >>> clf.fit(X, y)
+  Pipeline(steps=[('standardscaler', StandardScaler()),
+                  ('svc', SVC(gamma='auto'))])
+  ```
   
