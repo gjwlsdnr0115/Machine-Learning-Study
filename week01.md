@@ -85,3 +85,44 @@
   viper               4       5
   sidewinder          7       8
   ```
+
+- <code>**sklearn.linear_model.SGDClassifier(loss='hinge', *, penalty='l2', alpha=0.0001, l1_ratio=0.15, fit_intercept=True, max_iter=1000, tol=0.001, shuffle=True, verbose=0, epsilon=0.1, n_jobs=None, random_state=None, learning_rate='optimal', eta0=0.0, power_t=0.5, early_stopping=False, validation_fraction=0.1, n_iter_no_change=5, class_weight=None, warm_start=False, average=False)**</code>
+
+  - Linear classifiers (SVM, logistic regression, etc.) with SGD training
+  - For best results using the default learning rate schedule, the data should have zero mean and unit variance
+  - This implementation works with data represented as dense or sparse arrays of floating point values for the features
+  - The model it fits can be controlled with the loss parameter; by default, it fits a linear support vector machine (SVM)
+  
+  ```
+  >>> import numpy as np
+  >>> from sklearn.linear_model import SGDClassifier
+  >>> from sklearn.preprocessing import StandardScaler
+  >>> from sklearn.pipeline import make_pipeline
+  >>> X = np.array([[-1, -1], [-2, -1], [1, 1], [2, 1]])
+  >>> Y = np.array([1, 1, 2, 2])
+  >>> # Always scale the input. The most convenient way is to use a pipeline.
+  >>> clf = make_pipeline(StandardScaler(),
+  ...                     SGDClassifier(max_iter=1000, tol=1e-3))
+  >>> clf.fit(X, Y)
+  Pipeline(steps=[('standardscaler', StandardScaler()),
+                  ('sgdclassifier', SGDClassifier())])
+  >>> print(clf.predict([[-0.8, -1]]))
+  [1]
+  ```
+  
+- <code>**sklearn.neighbors.KNeighborsClassifier(n_neighbors=5, *, weights='uniform', algorithm='auto', leaf_size=30, p=2, metric='minkowski', metric_params=None, n_jobs=None, **kwargs)**</code>
+
+  - Classifier implementing the k-nearest neighbors vote
+  - Can be used for multilabel classification
+  
+  ```
+  >>> from sklearn.neighbors import KNeighborsClassifier
+  >>> y_train_large = (y_train >= 7)
+  >>> y_train_odd = (y_train % 2 == 1)
+  >>> y_multilabel = np.c_[y_train_large, y_train_odd]
+
+  >>> knn_clf = KNeighborsClassifier()
+  >>> knn_clf.fit(X_train, y_multilabel)
+  >>> knn_clf.predict([some_digit])
+  array([[False,  True]])
+  ```
