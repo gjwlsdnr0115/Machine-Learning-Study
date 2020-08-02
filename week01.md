@@ -13,9 +13,8 @@
 ##
 
 ### Practice Codes
-- [Sort](./sort)
-- CH02
-- CH03
+- [CH02](./codes/CH02_end_to_end.ipynb)
+- [CH03](./codes/CH03_classification.ipynb)
 
 ##
 
