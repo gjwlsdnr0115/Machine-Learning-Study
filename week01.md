@@ -4,8 +4,8 @@
 ##
 
 ### Chapters
-- CH02: End-to_End Machine Learning Project
-- CH03: Classification 
+- Chapter 2: End-to_End Machine Learning Project
+- Chapter 3: Classification 
 
 ##
 
