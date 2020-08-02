@@ -1,11 +1,11 @@
 # Week 2
-`#End-to-End` `#Classification`
+`#Linear` `#Vector`
 
 ##
 
 ### Chapters
-- Chapter 4: End-to_End Machine Learning Project
-- Chapter 5: Classification 
+- Chapter 4: Training Linear Models
+- Chapter 5: Support Vector Machines
 
 ##
 
