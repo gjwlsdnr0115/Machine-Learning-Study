@@ -7,9 +7,6 @@
 - CH02: End-to_End Machine Learning Project
 - CH03: Classification 
 
-
-[Solutions](./week01)
-
 ##
 
 ### Practice Codes
