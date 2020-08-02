@@ -16,113 +16,95 @@
 ##
 
 ### Takeaways
-- <code>**Series.value_counts(normalize=False, sort=True, ascending=False, bins=None, dropna=True)**</code>
-
-  **normalize** = If True then the object returned will contain the relative frequencies of the unique values\
-  **sort** = Sort by frequencies\
-  **bins** = Rather than count values, group them into half-open bins, a convenience for <code>pd.cut</code>, only works with numeric data.
+- <code>**sklearn.tree.DecisionTreeClassifier(*, criterion='gini', splitter='best', max_depth=None, min_samples_split=2, min_samples_leaf=1, min_weight_fraction_leaf=0.0, max_features=None, random_state=None, max_leaf_nodes=None, min_impurity_decrease=0.0, min_impurity_split=None, class_weight=None, presort='deprecated', ccp_alpha=0.0)**</code>
+  
+  **criterion** = The function to measure the quality of a split. Supported criteria are “gini” for the Gini impurity and “entropy” for the information gain.\
+  **max_depth** = The maximum depth of the tree. If None, then nodes are expanded until all leaves are pure or until all leaves contain less than min_samples_split samples.\
+  **min_samples_split** = The minimum number of samples required to split an internal node.\
+  **min_samples_leaf** = The minimum number of samples required to be at a leaf node.\
+  **max_features** = The number of features to consider when looking for the best split.\
+  
   
   ```
-  >>> index = pd.Index([3, 1, 2, 3, 4, np.nan])
-  >>> index.value_counts()
-  3.0    2
-  4.0    1
-  2.0    1
-  1.0    1
-  dtype: int64
-  >>> s = pd.Series([3, 1, 2, 3, 4, np.nan])
-  >>> s.value_counts(normalize=True)
-  3.0    0.4
-  4.0    0.2
-  2.0    0.2
-  1.0    0.2
-  dtype: float64
+  >>> from sklearn.datasets import load_iris
+  >>> from sklearn.model_selection import cross_val_score
+  >>> from sklearn.tree import DecisionTreeClassifier
+  >>> clf = DecisionTreeClassifier(random_state=0)
+  >>> iris = load_iris()
+  >>> cross_val_score(clf, iris.data, iris.target, cv=10)
+  ...                             # doctest: +SKIP
+  ...
+  array([ 1.     ,  0.93...,  0.86...,  0.93...,  0.93...,
+          0.93...,  0.93...,  1.     ,  0.93...,  1.      ])  
+  ```
+  
+- <code>**sklearn.tree.DecisionTreeRegressor(*, criterion='mse', splitter='best', max_depth=None, min_samples_split=2, min_samples_leaf=1, min_weight_fraction_leaf=0.0, max_features=None, random_state=None, max_leaf_nodes=None, min_impurity_decrease=0.0, min_impurity_split=None, presort='deprecated', ccp_alpha=0.0)**</code>
+  
+  Decision tree for regression
   
   ```
-- <code>**DataFrame[DataFrame.isnull().any(axis=1)]**</code>
-  
-  Returns all rows in dataframe with at least one null value.
-  
-- <code>**DataFrame.iloc**</code>
-
-  Purely integer-location based indexing for selection by position
-  
-  Allowed inputs are:
-  - An integer, e.g. 5
-  - A list or array of integers, e.g. [4, 3, 0]
-  - A slice object with ints, e.g. 1:7
-  - A boolean array
-  
-  ```
-  >>> mydict = [{'a': 1, 'b': 2, 'c': 3, 'd': 4},
-  ... {'a': 100, 'b': 200, 'c': 300, 'd': 400},
-  ... {'a': 1000, 'b': 2000, 'c': 3000, 'd': 4000 }]
-  >>> df = pd.DataFrame(mydict)
-  >>> df
-        a     b     c     d
-  0     1     2     3     4
-  1   100   200   300   400
-  2  1000  2000  3000  4000
+  >>> from sklearn.datasets import load_diabetes
+  >>> from sklearn.model_selection import cross_val_score
+  >>> from sklearn.tree import DecisionTreeRegressor
+  >>> X, y = load_diabetes(return_X_y=True)
+  >>> regressor = DecisionTreeRegressor(random_state=0)
+  >>> cross_val_score(regressor, X, y, cv=10)
+  ...                    # doctest: +SKIP
+  ...
+  array([-0.39..., -0.46...,  0.02...,  0.06..., -0.50...,
+         0.16...,  0.11..., -0.73..., -0.30..., -0.00...])
   ```
   
   
-- <code>**DataFrame.loc**</code>
+- <code>**sklearn.ensemble.RandomForestClassifier()**</code>
 
-  Access a group of rows and columns by labels or a boolean array
+  A random forest is a meta estimator that fits a number of decision tree classifiers on various sub-samples of the dataset and uses averaging to improve the predictive accuracy and control over-fitting.
 
-  Allowed inputs are:
-  - A single label, e.g. 5 or 'a'
-  - A list or array of labels, e.g. ['a', 'b', 'c']
-  - A slice object with labels, e.g. 'a':'f'
-
-  ```
-  >>> df = pd.DataFrame([[1, 2], [4, 5], [7, 8]],
-  ... index=['cobra', 'viper', 'sidewinder'],
-  ... columns=['max_speed', 'shield'])
-  >>> df
-              max_speed  shield
-  cobra               1       2
-  viper               4       5
-  sidewinder          7       8
-  ```
-
-- <code>**sklearn.linear_model.SGDClassifier(loss='hinge', *, penalty='l2', alpha=0.0001, l1_ratio=0.15, fit_intercept=True, max_iter=1000, tol=0.001, shuffle=True, verbose=0, epsilon=0.1, n_jobs=None, random_state=None, learning_rate='optimal', eta0=0.0, power_t=0.5, early_stopping=False, validation_fraction=0.1, n_iter_no_change=5, class_weight=None, warm_start=False, average=False)**</code>
-
-  - Linear classifiers (SVM, logistic regression, etc.) with SGD training
-  - For best results using the default learning rate schedule, the data should have zero mean and unit variance
-  - This implementation works with data represented as dense or sparse arrays of floating point values for the features
-  - The model it fits can be controlled with the loss parameter; by default, it fits a linear support vector machine (SVM)
+  **n_estimators** = The number of trees in the forest.\
+  **bootstrap** = Whether bootstrap samples are used when building trees. If False, the whole dataset is used to build each tree.\
+  **max_samples** = If bootstrap is True, the number of samples to draw from X to train each base estimator.
   
   ```
-  >>> import numpy as np
-  >>> from sklearn.linear_model import SGDClassifier
-  >>> from sklearn.preprocessing import StandardScaler
-  >>> from sklearn.pipeline import make_pipeline
-  >>> X = np.array([[-1, -1], [-2, -1], [1, 1], [2, 1]])
-  >>> Y = np.array([1, 1, 2, 2])
-  >>> # Always scale the input. The most convenient way is to use a pipeline.
-  >>> clf = make_pipeline(StandardScaler(),
-  ...                     SGDClassifier(max_iter=1000, tol=1e-3))
-  >>> clf.fit(X, Y)
-  Pipeline(steps=[('standardscaler', StandardScaler()),
-                  ('sgdclassifier', SGDClassifier())])
-  >>> print(clf.predict([[-0.8, -1]]))
+  >>> from sklearn.ensemble import RandomForestClassifier
+  >>> from sklearn.datasets import make_classification
+  >>> X, y = make_classification(n_samples=1000, n_features=4,
+  ...                            n_informative=2, n_redundant=0,
+  ...                            random_state=0, shuffle=False)
+  >>> clf = RandomForestClassifier(max_depth=2, random_state=0)
+  >>> clf.fit(X, y)
+  RandomForestClassifier(...)
+  >>> print(clf.predict([[0, 0, 0, 0]]))
   [1]
   ```
   
-- <code>**sklearn.neighbors.KNeighborsClassifier(n_neighbors=5, *, weights='uniform', algorithm='auto', leaf_size=30, p=2, metric='minkowski', metric_params=None, n_jobs=None)**</code>
+  
+- <code>**sklearn.ensemble.BaggingClassifier()**</code>
 
-  - Classifier implementing the k-nearest neighbors vote
-  - Can be used for multilabel classification
+  An ensemble meta-estimator that fits base classifiers each on random subsets of the original dataset and then aggregate their individual predictions (either by voting or by averaging) to form a final prediction.\
+  Can be used as a way to reduce the variance of a black-box estimator by introducing randomization into its construction procedure and then making an ensemble out of it.
+
+  ```
+  >>> from sklearn.svm import SVC
+  >>> from sklearn.ensemble import BaggingClassifier
+  >>> from sklearn.datasets import make_classification
+  >>> X, y = make_classification(n_samples=100, n_features=4,
+  ...                            n_informative=2, n_redundant=0,
+  ...                            random_state=0, shuffle=False)
+  >>> clf = BaggingClassifier(base_estimator=SVC(),
+  ...                         n_estimators=10, random_state=0).fit(X, y)
+  >>> clf.predict([[0, 0, 0, 0]])
+  array([1])
+  ```
+
+- <code>**xgboost.XGBRegressor()**</code>
+
+  Implementation of the scikit-learn API for XGBoost regression.
   
   ```
-  >>> from sklearn.neighbors import KNeighborsClassifier
-  >>> y_train_large = (y_train >= 7)
-  >>> y_train_odd = (y_train % 2 == 1)
-  >>> y_multilabel = np.c_[y_train_large, y_train_odd]
-
-  >>> knn_clf = KNeighborsClassifier()
-  >>> knn_clf.fit(X_train, y_multilabel)
-  >>> knn_clf.predict([some_digit])
-  array([[False,  True]])
+  >>> xgb_reg = xgboost.XGBRegressor(random_state=42)
+  >>> xgb_reg.fit(X_train, y_train)
+  >>> y_pred = xgb_reg.predict(X_val)
+  >>> val_error = mean_squared_error(y_val, y_pred) # Not shown
+  >>> print("Validation MSE:", val_error)
+  Validation MSE: 0.0028512559726563943
   ```
