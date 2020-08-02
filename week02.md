@@ -18,10 +18,10 @@
 ### Takeaways
 - <code>**SGDRegressor(loss='squared_loss', penalty='l2', alpha=0.0001, rho=0.85, fit_intercept=True, n_iter=5, shuffle=False, verbose=0, p=0.1, seed=0, learning_rate='invscaling', eta0=0.01, power_t=0.25, warm_start=False)**</code>
 
-  **loss** = The loss function to be used. Defaults to ‘squared_loss’ which refers to the ordinary least squares fit. ‘huber’ is an epsilon insensitive loss function for robust regression.
-  **penalty** = str, ‘l2’ or ‘l1’ or ‘elasticnet’
-  **alpha** = Constant that multiplies the regularization term. Defaults to 0.0001
-  **rho** = The Elastic Net mixing parameter, with 0 < rho <= 1. Defaults to 0.85.
+  **loss** = The loss function to be used. Defaults to ‘squared_loss’ which refers to the ordinary least squares fit. ‘huber’ is an epsilon insensitive loss function for robust regression.\
+  **penalty** = str, ‘l2’ or ‘l1’ or ‘elasticnet’\
+  **alpha** = Constant that multiplies the regularization term. Defaults to 0.0001\
+  **rho** = The Elastic Net mixing parameter, with 0 < rho <= 1. Defaults to 0.85.\
   **fit_intercept** = Whether the intercept should be estimated or not. If False, the data is assumed to be already centered. Defaults to True.
   
   ```
